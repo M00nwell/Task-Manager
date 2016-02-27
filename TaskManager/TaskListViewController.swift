@@ -94,14 +94,59 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
             //self.navigationController!.pushViewController(controller, animated: true)
     }
     
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let move = UITableViewRowAction(style: .Normal, title: "Move") { action, index in
+            let menu = UIAlertController(title: nil, message: "Move To", preferredStyle: .ActionSheet)
+            let todoAction = UIAlertAction(title: "TO DO", style: UIAlertActionStyle.Default, handler: { _ in self.moveTask(indexPath, destination: Task.TODO)})
+            let doingAction = UIAlertAction(title: "DOING", style: UIAlertActionStyle.Default, handler: { _ in self.moveTask(indexPath, destination: Task.DOING)})
+            let doneAction = UIAlertAction(title: "DONE", style: UIAlertActionStyle.Default, handler: { _ in self.moveTask(indexPath, destination: Task.DONE)})
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            
+            switch(self.listCategory){
+            case Task.TODO:
+                menu.addAction(doingAction)
+                menu.addAction(doneAction)
+                break
+            case Task.DOING:
+                menu.addAction(todoAction)
+                menu.addAction(doneAction)
+                break
+            case Task.DONE:
+                menu.addAction(todoAction)
+                menu.addAction(doingAction)
+                break
+            default:
+                break
+            }
+            menu.addAction(cancelAction)
+            self.presentViewController(menu, animated: true, completion: nil)
+        }
+        move.backgroundColor = UIColor.orangeColor()
+        
+        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            self.deleteTask(indexPath)
+        }
+        delete.backgroundColor = UIColor.lightGrayColor()
+
+        return [delete, move]
+    }
+    
+
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // the cells you would like the actions to appear needs to be editable
+        return true
+    }
+    
     ///////////////////////////////
     
-    //TaskEditViewController Delegate////////////////
+    // TaskEditViewController Delegate////////////////
     func taskEdited(taskEditer: TaskEditViewController, dic: [String : AnyObject]) {
         let _ = Task(dictionary: dic, context: sharedContext)
         CoreDataStackManager.sharedInstance().saveContext()
     }
+    //////////////////////////////
     
+    // helper functions////////////////////////////
     func addTask() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("TaskEditVC") as! TaskEditViewController
         controller.delegate = self
@@ -115,6 +160,21 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
         cell.iImageView.hidden = !(withTask.important as Bool)
         cell.uImageView.hidden = !(withTask.urgent as Bool)
     }
+    
+    func deleteTask(indexPath: NSIndexPath){
+        let task = fetchedResultsController.objectAtIndexPath(indexPath) as! Task
+        sharedContext.deleteObject(task)
+        CoreDataStackManager.sharedInstance().saveContext()
+    }
+    
+    func moveTask(indexPath: NSIndexPath, destination: Int){
+        let task = fetchedResultsController.objectAtIndexPath(indexPath) as! Task
+        task.category = destination
+        CoreDataStackManager.sharedInstance().saveContext()
+        //tableView.reloadData()
+    }
+    
+    //////////////////////////////////
     
     // fetch result controller protocol////////////////
     func controllerWillChangeContent(controller: NSFetchedResultsController) {

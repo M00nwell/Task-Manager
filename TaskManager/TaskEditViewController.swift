@@ -33,6 +33,7 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         iSwitch.setOn(false, animated: false)
         uSwitch.setOn(false, animated: false)
+        rSwitch.setOn(false, animated: false)
         titleTextField.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
