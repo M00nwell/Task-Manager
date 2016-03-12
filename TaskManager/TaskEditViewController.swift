@@ -12,7 +12,7 @@ protocol TaskEditViewControllerDelegate {
     func taskEdited(taskEditer: TaskEditViewController, dic: [String:AnyObject])
 }
 
-class TaskEditViewController: UIViewController, UITextFieldDelegate, DeadlineViewControllerDelegate {
+class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIToolbarDelegate, DeadlineViewControllerDelegate {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var iSwitch: UISwitch!
@@ -22,6 +22,7 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, DeadlineVie
     @IBOutlet weak var addDeadlineButton: UIButton!
     @IBOutlet weak var alarmButton: UIButton!
     @IBOutlet weak var deadlineButton: UIButton!
+    @IBOutlet weak var topBar: UIToolbar!
     
     var listCategory: Int!
     var deadline : NSDate = NSDate.distantFuture()
@@ -53,6 +54,8 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, DeadlineVie
         }
  
         titleTextField.delegate = self
+        contentTextView.delegate = self
+        topBar.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
@@ -66,6 +69,13 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, DeadlineVie
         containerView.backgroundColor = UIColor(hex: 0x888888, alpha: 0.5)
         view.addSubview(containerView)
         containerView.hidden = true
+        
+        subscribeToKeyboardNotification()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotification()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -91,6 +101,14 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, DeadlineVie
         return [.Portrait, .PortraitUpsideDown]
     }
     
+    // UIToolBarDelegate ////////////////
+    
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.TopAttached
+    }
+    
+    /////////////////////////////////////////////
+    
     //textfield delegate///////
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
@@ -103,6 +121,51 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, DeadlineVie
         return newLength <= 50
     }
     ///////////////////////////
+    
+    // textView delegate////////
+    
+    func textViewDidChange(textView: UITextView) {
+        let line = textView.caretRectForPosition((textView.selectedTextRange?.start)!)
+        let overflow = line.origin.y + line.size.height - ( textView.contentOffset.y + textView.bounds.size.height - textView.contentInset.bottom - textView.contentInset.top )
+        if (overflow > 0){
+            var offset = textView.contentOffset
+            offset.y += overflow + 7
+            //UIView.animateWithDuration(0.2, animations: { () -> Void in
+                textView.setContentOffset(offset, animated: true)
+            //})
+        }
+    }
+    
+    ////////////////////////////////////
+    
+    // To shift view up when editing bottom textfield
+    func keyboardWillShow(notification: NSNotification){
+        if(contentTextView.isFirstResponder()){
+            view.frame.origin.y = -getKeyboardHeight(notification) + (view.frame.height - contentTextView.frame.origin.y - contentTextView.frame.height)
+            topBar.frame.origin.y = 0
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification){
+        view.frame.origin.y = 0
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.CGRectValue().height
+    }
+    
+    func subscribeToKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    ////////////////////////////////////////
     
     
     //deadline view controller delegate//////

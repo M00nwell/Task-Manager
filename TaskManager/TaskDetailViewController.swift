@@ -28,6 +28,10 @@ class TaskDetailViewController: UIViewController, TaskEditViewControllerDelegate
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "composePressed")]
     }
     
+    override func viewDidLayoutSubviews() {
+        contentField.setContentOffset(CGPointZero, animated: false)
+    }
+    
     //task edit view controller delegate////////
     
     func taskEdited(taskEditer: TaskEditViewController, dic: [String : AnyObject]) {
