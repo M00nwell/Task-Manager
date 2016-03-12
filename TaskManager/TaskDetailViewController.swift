@@ -37,6 +37,7 @@ class TaskDetailViewController: UIViewController, TaskEditViewControllerDelegate
         task?.urgent = dic[Task.Keys.Urgent] as! Bool
         task?.important = dic[Task.Keys.Important] as! Bool
         task?.reminder = dic[Task.Keys.Reminder] as! Bool
+        CoreDataStackManager.sharedInstance().saveContext()
         updatePage()
     }
     
