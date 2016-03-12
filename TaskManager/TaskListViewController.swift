@@ -82,16 +82,11 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-            //let controller =
-            //storyboard!.instantiateViewControllerWithIdentifier("MovieListViewController")
-             //   as! MovieListViewController
-            
-            // Similar to the method above
-            //let actor = fetchedResultsController.objectAtIndexPath(indexPath) as! Person
-            
-            //controller.actor = actor
-            
-            //self.navigationController!.pushViewController(controller, animated: true)
+            let controller =
+            storyboard!.instantiateViewControllerWithIdentifier("TaskDetailVC") as! TaskDetailViewController
+            let task = fetchedResultsController.objectAtIndexPath(indexPath) as! Task
+            controller.task = task            
+            self.navigationController!.pushViewController(controller, animated: true)
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

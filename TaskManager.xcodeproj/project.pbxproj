@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		569C54881C832891005E1254 /* DeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C54871C832891005E1254 /* DeadlineViewController.swift */; };
+		569C548B1C8C405A005E1254 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C548A1C8C405A005E1254 /* FlickrClient.swift */; };
 		569CB9271C796F730012EADC /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CB9261C796F730012EADC /* TaskListViewController.swift */; };
 		569CB9291C796F870012EADC /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CB9281C796F870012EADC /* TaskDetailViewController.swift */; };
 		569CB92B1C797B470012EADC /* TaskTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CB92A1C797B470012EADC /* TaskTableCell.swift */; };
@@ -21,7 +23,6 @@
 		56ECB9FB1C5E5A8300BEDD03 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 56ECB9F91C5E5A8300BEDD03 /* Model.xcdatamodeld */; };
 		56ECB9FD1C5E5BB600BEDD03 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ECB9FC1C5E5BB600BEDD03 /* Task.swift */; };
 		56ECBA001C5F907500BEDD03 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ECB9FF1C5F907500BEDD03 /* CoreDataStackManager.swift */; };
-		56ECBA021C7617D300BEDD03 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ECBA011C7617D300BEDD03 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		569C54871C832891005E1254 /* DeadlineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadlineViewController.swift; sourceTree = "<group>"; };
+		569C548A1C8C405A005E1254 /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		569CB9261C796F730012EADC /* TaskListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		569CB9281C796F870012EADC /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		569CB92A1C797B470012EADC /* TaskTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableCell.swift; sourceTree = "<group>"; };
@@ -62,7 +65,6 @@
 		56ECB9FA1C5E5A8300BEDD03 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		56ECB9FC1C5E5BB600BEDD03 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		56ECB9FF1C5F907500BEDD03 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
-		56ECBA011C7617D300BEDD03 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		569C54891C8C4044005E1254 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				569C548A1C8C405A005E1254 /* FlickrClient.swift */,
+			);
+			name = Flickr;
+			sourceTree = "<group>";
+		};
 		56ECB9BF1C5E5A4300BEDD03 = {
 			isa = PBXGroup;
 			children = (
@@ -114,13 +124,14 @@
 			isa = PBXGroup;
 			children = (
 				56ECB9FF1C5F907500BEDD03 /* CoreDataStackManager.swift */,
+				569C54891C8C4044005E1254 /* Flickr */,
 				56ECB9FE1C5E5BC400BEDD03 /* Model */,
 				56ECB9CB1C5E5A4300BEDD03 /* AppDelegate.swift */,
-				56ECBA011C7617D300BEDD03 /* LoginViewController.swift */,
 				56ECB9CD1C5E5A4300BEDD03 /* MainViewController.swift */,
 				569CB9261C796F730012EADC /* TaskListViewController.swift */,
 				569CB9281C796F870012EADC /* TaskDetailViewController.swift */,
 				569CB92C1C79C5C50012EADC /* TaskEditViewController.swift */,
+				569C54871C832891005E1254 /* DeadlineViewController.swift */,
 				569CB92A1C797B470012EADC /* TaskTableCell.swift */,
 				56ECB9CF1C5E5A4300BEDD03 /* Main.storyboard */,
 				56ECB9D21C5E5A4300BEDD03 /* Assets.xcassets */,
@@ -289,13 +300,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				569CB9271C796F730012EADC /* TaskListViewController.swift in Sources */,
-				56ECBA021C7617D300BEDD03 /* LoginViewController.swift in Sources */,
+				569C54881C832891005E1254 /* DeadlineViewController.swift in Sources */,
 				56ECB9FD1C5E5BB600BEDD03 /* Task.swift in Sources */,
 				569CB92B1C797B470012EADC /* TaskTableCell.swift in Sources */,
 				56ECB9CE1C5E5A4300BEDD03 /* MainViewController.swift in Sources */,
 				56ECB9CC1C5E5A4300BEDD03 /* AppDelegate.swift in Sources */,
 				56ECBA001C5F907500BEDD03 /* CoreDataStackManager.swift in Sources */,
 				569CB9291C796F870012EADC /* TaskDetailViewController.swift in Sources */,
+				569C548B1C8C405A005E1254 /* FlickrClient.swift in Sources */,
 				56ECB9FB1C5E5A8300BEDD03 /* Model.xcdatamodeld in Sources */,
 				569CB92D1C79C5C50012EADC /* TaskEditViewController.swift in Sources */,
 			);
