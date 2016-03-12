@@ -429,25 +429,6 @@
                                     </mask>
                                 </variation>
                             </textView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHD-J3-zYG">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="340" id="kEd-Bz-bC4"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="kEd-Bz-bC4"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="kEd-Bz-bC4"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <segue destination="IE4-ur-1WJ" kind="embed" identifier="embedded" id="B3y-xS-Ia0"/>
-                                </connections>
-                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NUu-Lb-sEA">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
@@ -517,6 +498,25 @@
                                     <action selector="editDeadline:" destination="Fek-Kf-rlw" eventType="touchUpInside" id="cv9-Wr-Abc"/>
                                 </connections>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHD-J3-zYG">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="340" id="kEd-Bz-bC4"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kEd-Bz-bC4"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="kEd-Bz-bC4"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="IE4-ur-1WJ" kind="embed" identifier="embedded" id="B3y-xS-Ia0"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -557,10 +557,10 @@
                                 <exclude reference="xbv-uJ-oKc"/>
                                 <exclude reference="KN7-so-jOV"/>
                                 <exclude reference="gQ5-Ow-5Vr"/>
-                                <exclude reference="zHD-J3-zYG"/>
                                 <exclude reference="NUu-Lb-sEA"/>
                                 <exclude reference="OBW-gx-Ec4"/>
                                 <exclude reference="KAL-ov-Cqf"/>
+                                <exclude reference="zHD-J3-zYG"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="OWZ-uL-oHm"/>
@@ -601,10 +601,10 @@
                                 <include reference="xbv-uJ-oKc"/>
                                 <include reference="KN7-so-jOV"/>
                                 <include reference="gQ5-Ow-5Vr"/>
-                                <include reference="zHD-J3-zYG"/>
                                 <include reference="NUu-Lb-sEA"/>
                                 <include reference="OBW-gx-Ec4"/>
                                 <include reference="KAL-ov-Cqf"/>
+                                <include reference="zHD-J3-zYG"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="OWZ-uL-oHm"/>
