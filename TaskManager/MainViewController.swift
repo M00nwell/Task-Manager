@@ -71,12 +71,18 @@ class MainViewController: UIViewController {
         if(flickr.requesting){
             return
         }
+        ActivityIndicatorView.shared.showProgressView(view)
         flickr.getInterestingPhoto() { image, error  in
             if let myImage = image {
                 dispatch_async(dispatch_get_main_queue()) {
+                    ActivityIndicatorView.shared.hideProgressView()
                     self.view.backgroundColor = UIColor(patternImage: myImage)
                     self.imageShown = true
                 }
+            }else if let _ = error{
+                self.showAlert("Get background image failed. Please check your internet connection.", vc: self)
+            }else {
+                self.showAlert("Get background image failed. Please try again.", vc: self)
             }
         }
     }
@@ -84,16 +90,35 @@ class MainViewController: UIViewController {
     func randomBackgroudImage(){
         let total = min(100, flickr.totalImage)
         let random = Int(arc4random_uniform(UInt32(total)))
+        ActivityIndicatorView.shared.showProgressView(view)
         flickr.getDataFromUrl(NSURL(string:flickr.urls![random])!){ (imageData, response, error) -> Void in
             if let data = imageData {
                 dispatch_async(dispatch_get_main_queue()) {
+                    ActivityIndicatorView.shared.hideProgressView()
                     let image = UIImage(data: data)
                     self.view.backgroundColor = UIColor(patternImage: image!)
                     self.imageShown = true
                 }
+            }else if let _ = error{
+                self.showAlert("Get background image failed. Please check your internet connection.", vc: self)
+            }else {
+                self.showAlert("Get background image failed. Please try again.", vc: self)
             }
         }
 
+    }
+    
+    func showAlert(text: String, vc: UIViewController){
+        let alert = UIAlertController(title: "Alert", message: text, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            ActivityIndicatorView.shared.hideProgressView()
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            vc.presentViewController(alert, animated: true, completion: nil)
+        })
     }
 
     @IBAction func toDoPressed(sender: UIButton) {

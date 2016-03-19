@@ -31,7 +31,6 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
        
-        
         do {
             try fetchedResultsController.performFetch()
         } catch {}
@@ -39,6 +38,9 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
     }
     
     override func viewWillAppear(animated: Bool) {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
         tableView.reloadData()
     }
     
@@ -63,13 +65,14 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
     }()
     
     
-    // table view delegate/////////////////////
     
+    /// table view delegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
     
+    /// table view delegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             let CellIdentifier = "TaskTableCell"
             
@@ -81,6 +84,7 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
             return cell
     }
 
+    /// table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
             let controller =
             storyboard!.instantiateViewControllerWithIdentifier("TaskDetailVC") as! TaskDetailViewController
@@ -89,6 +93,7 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
             self.navigationController!.pushViewController(controller, animated: true)
     }
     
+    /// table view delegate
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let move = UITableViewRowAction(style: .Normal, title: "Move") { action, index in
             let menu = UIAlertController(title: nil, message: "Move To", preferredStyle: .ActionSheet)
@@ -125,23 +130,26 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
 
         return [delete, move]
     }
-    
 
+    /// table view delegate
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // the cells you would like the actions to appear needs to be editable
         return true
     }
     
-    ///////////////////////////////
     
-    // TaskEditViewController Delegate////////////////
+    
+    
+    /// TaskEditViewController Delegate
     func taskEdited(taskEditer: TaskEditViewController, dic: [String : AnyObject]) {
         let _ = Task(dictionary: dic, context: sharedContext)
         CoreDataStackManager.sharedInstance().saveContext()
     }
-    //////////////////////////////
     
-    // helper functions////////////////////////////
+    
+    
+    
+    /// helper function to present new task page
     func addTask() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("TaskEditVC") as! TaskEditViewController
         controller.delegate = self
@@ -150,32 +158,37 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
+    /// helper function to configure table cell
     func configureCell(cell: TaskTableCell, withTask: Task){
         cell.titleLabel.text = withTask.title
         cell.iImageView.hidden = !(withTask.important as Bool)
         cell.uImageView.hidden = !(withTask.urgent as Bool)
     }
     
+    /// helper function to delete task from core data
     func deleteTask(indexPath: NSIndexPath){
         let task = fetchedResultsController.objectAtIndexPath(indexPath) as! Task
         sharedContext.deleteObject(task)
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
+    /// helper function to move task to other list
     func moveTask(indexPath: NSIndexPath, destination: Int){
         let task = fetchedResultsController.objectAtIndexPath(indexPath) as! Task
         task.category = destination
         CoreDataStackManager.sharedInstance().saveContext()
-        //tableView.reloadData()
     }
     
-    //////////////////////////////////
+
     
-    // fetch result controller protocol////////////////
+    
+    
+    /// fetch result controller protocol
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView.beginUpdates()
     }
     
+    /// fetch result controller protocol
     func controller(controller: NSFetchedResultsController,
         didChangeSection sectionInfo: NSFetchedResultsSectionInfo,
         atIndex sectionIndex: Int,
@@ -193,6 +206,7 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
             }
     }
     
+    /// fetch result controller protocol
     func controller(controller: NSFetchedResultsController,
         didChangeObject anObject: AnyObject,
         atIndexPath indexPath: NSIndexPath?,
@@ -217,8 +231,8 @@ class TaskListViewController: UITableViewController, NSFetchedResultsControllerD
             }
     }
     
+    /// fetch result controller protocol
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
     }
-    /////////////////////////////////////////
 }

@@ -101,44 +101,42 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
         return [.Portrait, .PortraitUpsideDown]
     }
     
-    // UIToolBarDelegate ////////////////
     
+    /// UIToolBarDelegate // this makes top tool bar merge with status bar
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
         return UIBarPosition.TopAttached
     }
     
-    /////////////////////////////////////////////
     
-    //textfield delegate///////
+    
+    ///textfield delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
         return true
     }
     
+    ///textfield delegate
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
         let newLength = text.characters.count + string.characters.count - range.length
         return newLength <= 50
     }
-    ///////////////////////////
+
     
-    // textView delegate////////
-    
+    /// textView delegate
     func textViewDidChange(textView: UITextView) {
         let line = textView.caretRectForPosition((textView.selectedTextRange?.start)!)
         let overflow = line.origin.y + line.size.height - ( textView.contentOffset.y + textView.bounds.size.height - textView.contentInset.bottom - textView.contentInset.top )
         if (overflow > 0){
             var offset = textView.contentOffset
             offset.y += overflow + 7
-            //UIView.animateWithDuration(0.2, animations: { () -> Void in
-                textView.setContentOffset(offset, animated: true)
-            //})
+            textView.setContentOffset(offset, animated: true)
         }
     }
     
-    ////////////////////////////////////
+
     
-    // To shift view up when editing bottom textfield
+    /// To shift view up when editing content textview
     func keyboardWillShow(notification: NSNotification){
         if(contentTextView.isFirstResponder()){
             view.frame.origin.y = -getKeyboardHeight(notification) + (view.frame.height - contentTextView.frame.origin.y - contentTextView.frame.height)
@@ -146,6 +144,7 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
         }
     }
     
+    /// To shift view back
     func keyboardWillHide(notification: NSNotification){
         view.frame.origin.y = 0
     }
@@ -165,10 +164,10 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-    ////////////////////////////////////////
+
     
     
-    //deadline view controller delegate//////
+    ///deadline view controller delegate
     func saveDeadline(deadline: NSDate, reminder: Bool){
         self.deadline = deadline
         self.bReminder = reminder
@@ -187,9 +186,11 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
         addDeadlineButton.hidden = true
         hideDeadlineMenu()
     }
+    ///deadline view controller delegate
     func cancelDeadline(){
         hideDeadlineMenu()
     }
+    ///deadline view controller delegate
     func removeDeadline(){
         self.deadline = NSDate.distantFuture()
         self.bReminder = false
@@ -199,14 +200,15 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
         addDeadlineButton.hidden = false
         hideDeadlineMenu()
     }
-    ///////////////////////////
+
     
     
-    //helper functions////////////////////
+    ///helper function to dismiss keyboard
     func dismissKeyboard() {
         view.endEditing(true)
     }
     
+    ///helper function to make shake annimation on text field
     func shakeWarning(txtField: UITextField) {
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.07
@@ -217,6 +219,7 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
         txtField.layer.addAnimation(animation, forKey: "position")
     }
     
+    ///helper function to show deadline menu
     func showDeadlineMenu(){
         containerView.hidden = false
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveLinear, animations: { () -> Void in
@@ -225,6 +228,7 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
             }, completion: nil)
     }
     
+    ///helper function to hide deadline menu
     func hideDeadlineMenu(){
         containerView.hidden = true
         containerView.frame = view.frame
@@ -232,7 +236,8 @@ class TaskEditViewController: UIViewController, UITextFieldDelegate, UITextViewD
             self.deadLineView.frame.origin.y = self.view.frame.size.height
             }, completion: nil)
     }
-    ///////////////////////////////
+
+    
     
     
     @IBAction func cancelPressed(sender: UIBarButtonItem) {

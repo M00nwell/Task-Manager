@@ -32,8 +32,7 @@ class TaskDetailViewController: UIViewController, TaskEditViewControllerDelegate
         contentField.setContentOffset(CGPointZero, animated: false)
     }
     
-    //task edit view controller delegate////////
-    
+    ///task edit view controller delegate
     func taskEdited(taskEditer: TaskEditViewController, dic: [String : AnyObject]) {
         task?.title = dic[Task.Keys.Title] as! String
         task?.deadline = dic[Task.Keys.Deadline] as! NSDate
@@ -45,10 +44,10 @@ class TaskDetailViewController: UIViewController, TaskEditViewControllerDelegate
         updatePage()
     }
     
-    //////////////////////////////////////////
+
     
-    //helper functions///////////////////
     
+    ///helper function to update view
     func updatePage(){
         if let myTask = task {
             taskLabel.text = myTask.title
@@ -73,6 +72,7 @@ class TaskDetailViewController: UIViewController, TaskEditViewControllerDelegate
         }
     }
     
+    ///helper function to update dead line text color
     func updateDeadlineColor(date: NSDate){
         let now = NSDate()
         if(date.timeIntervalSince1970 >= now.timeIntervalSince1970 + 4*secondsInDay){
@@ -91,8 +91,9 @@ class TaskDetailViewController: UIViewController, TaskEditViewControllerDelegate
         
     }
     
-    ////////////////////////////////////////
     
+    
+    ///compose button action
     func composePressed() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("TaskEditVC") as! TaskEditViewController
         controller.delegate = self

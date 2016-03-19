@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		569C54881C832891005E1254 /* DeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C54871C832891005E1254 /* DeadlineViewController.swift */; };
 		569C548B1C8C405A005E1254 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C548A1C8C405A005E1254 /* FlickrClient.swift */; };
+		569C548F1C9D1FF4005E1254 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C548E1C9D1FF4005E1254 /* ActivityIndicatorView.swift */; };
 		569CB9271C796F730012EADC /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CB9261C796F730012EADC /* TaskListViewController.swift */; };
 		569CB9291C796F870012EADC /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CB9281C796F870012EADC /* TaskDetailViewController.swift */; };
 		569CB92B1C797B470012EADC /* TaskTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CB92A1C797B470012EADC /* TaskTableCell.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		569C54871C832891005E1254 /* DeadlineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadlineViewController.swift; sourceTree = "<group>"; };
 		569C548A1C8C405A005E1254 /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
+		569C548E1C9D1FF4005E1254 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		569CB9261C796F730012EADC /* TaskListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		569CB9281C796F870012EADC /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		569CB92A1C797B470012EADC /* TaskTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableCell.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				569CB92C1C79C5C50012EADC /* TaskEditViewController.swift */,
 				569C54871C832891005E1254 /* DeadlineViewController.swift */,
 				569CB92A1C797B470012EADC /* TaskTableCell.swift */,
+				569C548E1C9D1FF4005E1254 /* ActivityIndicatorView.swift */,
 				56ECB9CF1C5E5A4300BEDD03 /* Main.storyboard */,
 				56ECB9D21C5E5A4300BEDD03 /* Assets.xcassets */,
 				56ECB9D41C5E5A4300BEDD03 /* LaunchScreen.storyboard */,
@@ -302,6 +305,7 @@
 				569CB9271C796F730012EADC /* TaskListViewController.swift in Sources */,
 				569C54881C832891005E1254 /* DeadlineViewController.swift in Sources */,
 				56ECB9FD1C5E5BB600BEDD03 /* Task.swift in Sources */,
+				569C548F1C9D1FF4005E1254 /* ActivityIndicatorView.swift in Sources */,
 				569CB92B1C797B470012EADC /* TaskTableCell.swift in Sources */,
 				56ECB9CE1C5E5A4300BEDD03 /* MainViewController.swift in Sources */,
 				56ECB9CC1C5E5A4300BEDD03 /* AppDelegate.swift in Sources */,
